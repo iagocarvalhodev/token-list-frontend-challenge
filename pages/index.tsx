@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { useEffect } from 'react';
-import Title from '../components/Title';
+import Title from '@components/Title';
 
 export default function Home() {
   useEffect(() => {
@@ -37,7 +37,7 @@ export default function Home() {
     ws.addEventListener('message', function message(response) {
       const { n, o } = JSON.parse(response.data);
       const channel = n; // GetInstruments | SubscribeLevel1 | Level1UpdateEvent
-      const data = JSON.parse(0);
+      const data = JSON.parse('0');
 
       // RESPONSE WITH ALL CRYPTOS
       if (n === 'GetInstruments') {
