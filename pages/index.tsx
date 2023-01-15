@@ -1,14 +1,16 @@
 import Head from 'next/head'
 import { useEffect, useState } from 'react';
-import Title from '@components/Title';
 import { Token, TokenValues } from '@appTypes/tokenTypes';
+import { TokenCard } from '@components/tokenCard';
+import { TokensGrid } from '@styles/components/tokensGrid';
+import Title from '@styles/components/Title';
 
 export default function Home() {
   const [ tokenValues, setTokenValues ] = useState<TokenValues>({} as TokenValues);
   const [ tokenList, setTokenList ] = useState<Token[]>([]);
   
   const [ stopSignal, setStopSignal ] = useState(true);
-  const [ firstFetchStopSignal, setFirstFetchStopSignal ] = useState(false);
+  const [ rotateStop, setRotateStop ] = useState(false);
 
   useEffect(() => {
     const ws = new WebSocket('wss://api.foxbit.com.br/');
@@ -47,32 +49,24 @@ export default function Home() {
     ws.addEventListener('message', function message(response) {
       const { n, o } = JSON.parse(response.data);
       const channel = n;
-      let data: any = JSON.parse(o)
+       let data: any = []
 
-      const setDataAndStopSignal = () => {
+      const setToken = () => {
+        data = JSON.parse(o);
         if (data.length > 1) {
           setTokenList(data);
-          setFirstFetchStopSignal(true);
+          setRotateStop(true);
         }
       }
       if (o) {
-        setDataAndStopSignal();
+        setToken();
       }
 
-      // RESPONSE WITH ALL CRYPTOS
-      if (channel === 'GetInstruments' && !firstFetchStopSignal) {
-        console.log(data, 'all');
-      }
-
-      // FIRST RESPONSE
-      if (channel === 'SubscribeLevel1' && !firstFetchStopSignal) {
-        console.log(data, 'first');
+      if (channel === 'SubscribeLevel1' && !rotateStop) {
         setTokenValues(data);
       }
 
-      // UPDATES TO SUBSCRIBELEVEL1
       if (channel === 'Level1UpdateEvent') {
-        console.log(data, 'updates');
         setTokenValues(data);
       }
     });
@@ -88,7 +82,11 @@ export default function Home() {
       <main>
         <Title>Foxbit - Frontend Challenge</Title>
         <>
-          {console.log('cryptoData', tokenList)}
+          <TokensGrid>
+            {tokenList && tokenList.map(token => (
+               <TokenCard singleToken={token} tokenValue={tokenValues} key={token.InstrumentId} />
+            ))}
+          </TokensGrid>
         </>
       </main>
     </div>
