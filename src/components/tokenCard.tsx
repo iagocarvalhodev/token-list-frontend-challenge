@@ -18,7 +18,7 @@ export const TokenCard = ({ singleToken, tokenValue }: TokenCardProps) => {
 
   useEffect(() => {
     if (singleToken.InstrumentId === tokenValue.InstrumentId) {
-      setVariationPrice(Math.sign(tokenValue.Rolling24HrPxChange) === 1 ? true : false)
+      setVariationPrice(Math.sign(tokenValue.Rolling24HrPxChange) === 1)
       setVariationPricePorcent(tokenValue.Rolling24HrPxChange.toString())
       setLastPriceToken(priceFormat.format(tokenValue.LastTradedPx).substring(2))
       setTokenVolume(priceFormat.format(tokenValue.Rolling24HrVolume).substring(3))
@@ -88,7 +88,7 @@ const { Card, PriceChangeContent, VariantPrice } = {
         font-weight: 500;
       }
       > h2 {
-        font-size: 20px;
+        font-size: 19px;
         color: #b7b8be;
         font-weight: 500;
         span {
