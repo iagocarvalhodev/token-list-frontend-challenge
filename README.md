@@ -11,7 +11,7 @@
 
 ### Link
 
-https://token-list-frontend-challenge.vercel.app/
+https://token-list-frontend-challenge-iagocarvalhodev.vercel.app/
 
 
 ### ℹ️ Intall Dependencies NPM or YAR
