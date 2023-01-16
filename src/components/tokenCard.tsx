@@ -1,8 +1,8 @@
-import styled from "styled-components"
-import { BsArrowDown, BsArrowUp } from 'react-icons/bs';
-import { Token, TokenValues } from "@appTypes/tokenTypes";
-import { useEffect, useState } from "react";
-import { priceFormat } from "src/utils/utils";
+import styled from 'styled-components'
+import { BsArrowDown, BsArrowUp } from 'react-icons/bs'
+import { Token, TokenValues } from '@appTypes/tokenTypes'
+import { useEffect, useState } from 'react'
+import { priceFormat } from '../utils/utils'
 
 interface TokenCardProps {
   singleToken: Token
@@ -23,30 +23,20 @@ export const TokenCard = ({ singleToken, tokenValue }: TokenCardProps) => {
       setLastPriceToken(priceFormat.format(tokenValue.LastTradedPx).substring(3))
       setTokenVolume(priceFormat.format(tokenValue.Rolling24HrVolume).substring(3))
     }
-
-  }, [tokenValue]);
-
+  }, [tokenValue, singleToken])
 
   return (
     <Card>
       <div>
-        <img onError={() => setTokenImage('default-currency')} src={`https://statics.foxbit.com.br/icons/colored/${tokenImage}.svg`} alt={singleToken.Product1Symbol} />
+        <img
+          onError={() => setTokenImage('default-currency')}
+          src={`https://statics.foxbit.com.br/icons/colored/${tokenImage}.svg`}
+          alt={singleToken.Product1Symbol}
+        />
         <PriceChangeContent color={variationPrice ? '#ebfaf4' : '#fceded'}>
-          {variationPrice ? (
-            <BsArrowUp color="#214739" size={10}/>
-          ) : (
-            <BsArrowDown color="#5c3030" size={10}/>
-          )}
+          {variationPrice ? <BsArrowUp color='#214739' size={10} /> : <BsArrowDown color='#5c3030' size={10} />}
           <VariantPrice color={variationPrice ? '#214739' : '#5c3030'}>
-            {variationPrice ? (
-              <>
-                {`${variationPricePorcent}%`}
-              </>
-            ) : (
-              <>
-                {`${variationPricePorcent.substring(1)}%`}
-              </>
-            )}
+            {variationPrice ? <>{`${variationPricePorcent}%`}</> : <>{`${variationPricePorcent.substring(1)}%`}</>}
           </VariantPrice>
         </PriceChangeContent>
       </div>
@@ -58,7 +48,9 @@ export const TokenCard = ({ singleToken, tokenValue }: TokenCardProps) => {
       </div>
       <div>
         <small>Volume (24h):</small>
-        <span>{tokenVolume} {singleToken.Product1Symbol}</span>
+        <span>
+          {tokenVolume} {singleToken.Product1Symbol}
+        </span>
       </div>
     </Card>
   )
@@ -111,7 +103,7 @@ const { Card, PriceChangeContent, VariantPrice } = {
       small {
         font-size: 10px;
       }
-      span{
+      span {
         font-size: 12px;
         text-transform: uppercase;
       }
@@ -119,7 +111,7 @@ const { Card, PriceChangeContent, VariantPrice } = {
   `,
   PriceChangeContent: styled.div`
     min-width: 48px;
-    background-color: ${(props) => props.color};
+    background-color: ${props => props.color};
     border-radius: 12px;
     padding: 0.25rem 0.25rem 0.25rem 0.5rem;
     display: flex;
@@ -127,7 +119,7 @@ const { Card, PriceChangeContent, VariantPrice } = {
     align-items: center;
   `,
   VariantPrice: styled.span`
-    color: ${(props) => props.color};
+    color: ${props => props.color};
     font-size: 12px;
     font-weight: 500;
   `
