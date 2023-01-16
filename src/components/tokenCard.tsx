@@ -20,7 +20,7 @@ export const TokenCard = ({ singleToken, tokenValue }: TokenCardProps) => {
     if (singleToken.InstrumentId === tokenValue.InstrumentId) {
       setVariationPrice(Math.sign(tokenValue.Rolling24HrPxChange) === 1 ? true : false)
       setVariationPricePorcent(tokenValue.Rolling24HrPxChange.toString())
-      setLastPriceToken(priceFormat.format(tokenValue.LastTradedPx).substring(3))
+      setLastPriceToken(priceFormat.format(tokenValue.LastTradedPx).substring(2))
       setTokenVolume(priceFormat.format(tokenValue.Rolling24HrVolume).substring(3))
     }
   }, [tokenValue, singleToken])
