@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import { Token, TokenValues } from '@appTypes/tokenTypes'
@@ -16,8 +17,6 @@ export default function Home() {
     const ws = new WebSocket('wss://api.foxbit.com.br/')
 
     ws.addEventListener('open', function open() {
-      console.log('connected')
-
       const payloadInstruments = {
         m: 0,
         i: 2,
@@ -36,7 +35,7 @@ export default function Home() {
             o: JSON.stringify({ InstrumentId: token.InstrumentId || 1 })
           }
 
-          ws.send(JSON.stringify(variablePayload))
+          return ws.send(JSON.stringify(variablePayload))
         })
         setForStop(false)
       }
@@ -70,7 +69,7 @@ export default function Home() {
         setTokenValues(data)
       }
     })
-  }, [tokenList])
+  }, [forStop, rotateStop, tokenList])
 
   return (
     <div>
@@ -81,11 +80,9 @@ export default function Home() {
       </Head>
       <main>
         <Title>Foxbit - Frontend Challenge</Title>
-        <>
-          <TokensGrid data-testid='grid'>
-            {tokenList && tokenList.map(token => <TokenCard singleToken={token} tokenValue={tokenValues} key={token.InstrumentId} />)}
-          </TokensGrid>
-        </>
+        <TokensGrid data-testid='grid'>
+          {tokenList && tokenList.map(token => <TokenCard singleToken={token} tokenValue={tokenValues} key={token.InstrumentId} />)}
+        </TokensGrid>
       </main>
     </div>
   )

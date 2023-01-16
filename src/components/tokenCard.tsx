@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import styled from 'styled-components'
 import { BsArrowDown, BsArrowUp } from 'react-icons/bs'
 import { Token, TokenValues } from '@appTypes/tokenTypes'
@@ -9,7 +10,7 @@ interface TokenCardProps {
   tokenValue: TokenValues
 }
 
-export const TokenCard = ({ singleToken, tokenValue }: TokenCardProps) => {
+export function TokenCard({ singleToken, tokenValue }: TokenCardProps) {
   const [variationPrice, setVariationPrice] = useState<boolean>(false)
   const [variationPricePorcent, setVariationPricePorcent] = useState<string>('---')
   const [lastPriceToken, setLastPriceToken] = useState<string>('---')
@@ -36,7 +37,7 @@ export const TokenCard = ({ singleToken, tokenValue }: TokenCardProps) => {
         <PriceChangeContent color={variationPrice ? '#ebfaf4' : '#fceded'}>
           {variationPrice ? <BsArrowUp color='#214739' size={10} /> : <BsArrowDown color='#5c3030' size={10} />}
           <VariantPrice color={variationPrice ? '#214739' : '#5c3030'}>
-            {variationPrice ? <>{`${variationPricePorcent}%`}</> : <>{`${variationPricePorcent.substring(1)}%`}</>}
+            {`${variationPricePorcent.substring(variationPrice ? 0 : 1)}%`}
           </VariantPrice>
         </PriceChangeContent>
       </div>

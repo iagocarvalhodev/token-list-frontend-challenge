@@ -1,64 +1,50 @@
 {
-  "env": {
-    "browser": true,
-    "es2021": true,
-    "jest": true
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "tsconfigRootDir": "./"
   },
   "extends": [
     "airbnb",
     "airbnb-typescript",
+    "airbnb/hooks",
+    "prettier",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:@next/next/recommended",
-    "prettier"
+    "plugin:prettier/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
   ],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": ["./tsconfig.json"],
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "ecmaVersion": 12,
-    "sourceType": "module"
-  },
-  "plugins": ["react", "@typescript-eslint", "eslint-plugin-import-helpers", "prettier", "import"],
-  "rules": {
-    "camelcase": "off",
-    "import/no-unresolved": "error",
-    "prefer-arrow-callback": "off",
-    "class-methods-use-this": "off",
-    "import/prefer-default-export": "off",
-    "no-shadow": "off",
-    "no-console": "off",
-    "no-useless-constructor": "off",
-    "no-empty-function": "off",
-    "lines-between-class-members": "off",
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "ts": "never",
-        "tsx": "never"
+  "plugins": ["@typescript-eslint", "import"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "parserOptions": {
+        "project": ["./tsconfig.json"] // Specify it only for TypeScript files
       }
-    ],
-    "prettier/prettier": "error",
-    "react/react-in-jsx-scope": "off",
-    "no-use-before-define": "off",
-    "react/jsx-props-no-spreading": "warn",
-    "import/no-extraneous-dependencies": "off",
-    "import-helpers/order-imports": "off",
-    "no-unneeded-ternary": "warn",
-    "react/function-component-definition": "off",
-    "@typescript-eslint/no-unsafe-argument": "off",
-    "array-callback-return": "warn",
-    "react/jsx-no-useless-fragment": "off",
-    "@typescript-eslint/no-unsafe-assignment": "off",
-    "@typescript-eslint/no-unsafe-member-access": "off",
-    "@typescript-eslint/no-use-before-define": ["warn"]
-  },
+    }
+  ],
   "settings": {
     "import/resolver": {
       "typescript": {}
     }
+  },
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/prop-types": "off",
+    "react/require-default-props": "off",
+    "no-underscore-dangle": "off",
+    "@typescript-eslint/no-unsafe-return": "off",
+    "@typescript-eslint/no-floating-promises": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "import/prefer-default-export": "off",
+    "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }
